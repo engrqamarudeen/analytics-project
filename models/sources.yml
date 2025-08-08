@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: data_source_snowflake
+    database: ANALYTIC_DWH
+    schema: STAGING_LAYER
+    description: "Source data ingested directly from operational systems into Snowflake"
+
+    # Define tables in the source
+    tables:
+      - name: CATEGORIES
+      - name: CUSTOMERS
+      - name: ORDERS
+      - name: ORDER_ITEMS
+      - name: PRODUCTS
+      - name: SUPPLIERS
+      - name: TRANSACTIONS
