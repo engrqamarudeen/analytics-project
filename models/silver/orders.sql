@@ -27,7 +27,7 @@ final as (
         billing_address,
 
         -- Derived state_name based on state_code
-        case state_code
+        case state_name
             when 'AL' then 'Alabama'
             when 'AK' then 'Alaska'
             when 'AZ' then 'Arizona'
@@ -93,4 +93,4 @@ final as (
     from state_extracted
 )
 ---insert into analytic_dwh.silver.orders
----select * from final
+select * from final

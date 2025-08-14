@@ -16,9 +16,3 @@ sources:
       - name: SUPPLIERS
       - name: TRANSACTIONS
 
-version: 2
-
-sources:
-  - name: bronze
-    tables:
-      - name: orders
