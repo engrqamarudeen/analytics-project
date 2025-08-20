@@ -20,6 +20,7 @@ state_extracted as (
 final as (
 
     select
+     --row_number() over (order by order_id) as order_sk,
         order_id,
         customer_id,
         order_date,
