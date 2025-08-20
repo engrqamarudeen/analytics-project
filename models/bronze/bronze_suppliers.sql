@@ -3,3 +3,5 @@ with bronze_suppliers AS (
     from {{source('data_source_snowflake', 'SUPPLIERS') }}
 )
 select * from bronze_suppliers
+
+
