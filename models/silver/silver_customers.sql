@@ -2,6 +2,7 @@ with
     source as (select * from {{ ref("bronze_customers") }}),
     cleaned as (
         select
+        row_number() over(order by customer_id) as customer_sk,
             -- Clean and validate UUID
             lower(trim(customer_id)) as customer_id,
 
@@ -27,6 +28,6 @@ with
             and last_name is not null
 
     )
-select customer_id, first_name, last_name, email, country, created_at, updated_at
+select customer_sk, customer_id, first_name, last_name, email, country, created_at, updated_at
 
 from cleaned
