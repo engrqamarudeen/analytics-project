@@ -1,5 +1,6 @@
 with dim_orders as (
     select
+    order_sk
     order_id,
     order_date,
     order_status,
@@ -9,6 +10,6 @@ with dim_orders as (
     shipping_method,
     created_at,
     updated_at
-    from {{ref ('orders')}}
+    from {{ref ('silver_orders')}}
 )
 select * from dim_orders
