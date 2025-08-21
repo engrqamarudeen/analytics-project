@@ -1,6 +1,6 @@
 with dim_orders as (
     select
-    order_sk
+    order_sk,
     order_id,
     order_date,
     order_status,
