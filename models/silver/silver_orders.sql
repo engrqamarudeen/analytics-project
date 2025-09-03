@@ -97,6 +97,7 @@ final as (
 cleaned_order as (
 
         select
+            order_sk,
             order_id,
             customer_id,
             cast(order_date as date) as order_date,
