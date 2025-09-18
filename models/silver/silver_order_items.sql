@@ -34,6 +34,9 @@ with
         END AS discount_applied
     FROM source
     WHERE order_item_id IS NOT NULL
+        and ORDER_ID is not null
+        and product_ID is not null
+        and TRY_TO_NUMBER(TO_VARCHAR(quantity)) > 0
 )
 
 select
