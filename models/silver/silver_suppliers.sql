@@ -1,3 +1,12 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='supplier_id',
+        incremental_strategy='merge',
+        merge_update_columns=['supplier_sk', 'created_at', 'city', 'email', 'supplier_name', 'rating', 'address', 'country', 'contact_person', 'updated_at', 'phone', 'is_valid_phone']
+    )
+}}
+
 WITH base AS (
     SELECT
         created_at,
@@ -12,6 +21,10 @@ WITH base AS (
         updated_at,
         REGEXP_REPLACE(phone, '[^0-9]', '') AS digits
     FROM {{ ref('bronze_suppliers') }}
+    
+    {% if is_incremental() %}
+        where updated_at > (select max(updated_at) from {{ this }})
+    {% endif %}
 ),
 
 Transformed_layer as (
