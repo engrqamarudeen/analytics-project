@@ -43,7 +43,7 @@ suppliers as (
         city,
         rating,
         country,
-        contact_person,
+        contact_person
         
     from {{ ref('dim_suppliers') }}
 ),
@@ -79,4 +79,3 @@ dim_products as (
 )
 
 select * from dim_products
-

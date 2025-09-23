@@ -37,9 +37,7 @@ with
 
         -- Filter out invalid UUIDs and null essential fields
         where
-            customer_id rlike '^[a-f0-9\\-]{36}
-
-
+            customer_id rlike '^[a-f0-9\-]{36}$'
             and email is not null
             and first_name is not null
             and last_name is not null
