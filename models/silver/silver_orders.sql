@@ -1,8 +1,21 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='order_id',
+        incremental_strategy='merge',
+        merge_update_columns=['order_sk', 'customer_id', 'order_date', 'order_status', 'billing_address', 'state_name', 'shipping_address', 'shipping_cost', 'shipping_method', 'discount_amount', 'tax_amount', 'total_amount', 'created_at', 'updated_at']
+    )
+}}
+
 with base as (
 
     -- i have to reference the bronze table
     select *
     from {{ ref('bronze_orders') }}
+    
+    {% if is_incremental() %}
+        where updated_at > (select max(updated_at) from {{ this }})
+    {% endif %}
 
 ),
 
