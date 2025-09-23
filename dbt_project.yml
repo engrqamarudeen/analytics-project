@@ -38,11 +38,20 @@ models:
   my_new_project:
     # Applies to all files under models/example/
     bronze:
-      +materialized: table
+      +materialized: incremental
       +schema: BRONZE
+      +incremental_strategy: merge
+      +unique_key: 
+        - customer_id  # Will be customized per model
     silver:
-      +materialized: table
+      +materialized: incremental
       +schema: SILVER
+      +incremental_strategy: merge
+      +unique_key: 
+        - customer_id  # Will be customized per model
     gold:
-      +materialized: view
+      +materialized: incremental
       +schema: GOLD
+      +incremental_strategy: merge
+      +unique_key: 
+        - customer_sk  # Will be customized per model

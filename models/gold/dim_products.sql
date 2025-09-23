@@ -1,3 +1,12 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='product_sk',
+        incremental_strategy='merge',
+        merge_update_columns=['product_id', 'stock_code', 'product_description', 'unit_price', 'stock_quantity', 'category_sk', 'category_name', 'parent_category_id', 'supplier_sk', 'supplier_name', 'supplier_city', 'supplier_country', 'supplier_rating', 'supplier_contact_person', 'created_at', 'updated_at']
+    )
+}}
+
 with products as (
     select
         product_sk,
@@ -11,6 +20,10 @@ with products as (
         created_at,
         updated_at
     from {{ ref('silver_products') }}
+    
+    {% if is_incremental() %}
+        where updated_at > (select max(updated_at) from {{ this }})
+    {% endif %}
 ),
 
 categories as (
